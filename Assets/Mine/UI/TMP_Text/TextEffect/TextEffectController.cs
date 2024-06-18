@@ -63,6 +63,7 @@ namespace Mine.UI.TMP_Text.TextEffect
                          new EventEffect(),
                          new ShakeEffect(),
                          new FloatEffect(),
+                         new JumpEffect(),
                          new JitterEffect(),
                          new NoneEffect()
                      })
