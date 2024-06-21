@@ -1,13 +1,8 @@
-using Mine.States._2D;
-
 namespace Mine.States._25D
 {
-    using System;
     using System.Collections.Generic;
     using UnityEngine;
-    using Object = UnityEngine.Object;
     using Mine.Extensions;
-    using UnityEngine.Serialization;
     using static UnityEngine.Mathf;
 
     public enum PlayerMovementStateType

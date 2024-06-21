@@ -1,15 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using Mine.Extensions;
 using Mine.Interactive;
-using Mine.Managers;
 using Mine.Utilities;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Mine.UI
 {

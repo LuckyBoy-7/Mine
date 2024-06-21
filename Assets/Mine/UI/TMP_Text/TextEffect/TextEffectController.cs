@@ -2,12 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
 using Mine.Collections;
 using Mine.Extensions;
 using TMPro;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Mine.UI.TMP_Text.TextEffect
 {

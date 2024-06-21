@@ -1,5 +1,3 @@
-using Mine.Managers;
-
 namespace Mine.Managers
 {
     public partial class EventManager

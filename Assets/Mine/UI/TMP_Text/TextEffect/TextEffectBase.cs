@@ -1,17 +1,8 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using Mine.Collections;
-using Mine.Extensions;
 // using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace Mine.UI.TMP_Text.TextEffect
 {

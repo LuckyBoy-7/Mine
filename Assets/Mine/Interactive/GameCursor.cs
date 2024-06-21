@@ -1,12 +1,8 @@
 // ReSharper disable Unity.NoNullPropagation ，大概是说Object重载了==，如果我们用?.可能会影响unity脚本的生命周期造成错误
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Mine.Extensions;
 using Mine.Managers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace Mine.Interactive

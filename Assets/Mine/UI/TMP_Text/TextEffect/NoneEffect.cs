@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using TMPro;
-using UnityEngine;
 
 namespace Mine.UI.TMP_Text.TextEffect
 {

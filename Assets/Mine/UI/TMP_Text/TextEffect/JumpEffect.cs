@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using Mine.UI.TMP_Text;
-using Mine.UI.TMP_Text.TextEffect;
 using TMPro;
 using UnityEngine;
 

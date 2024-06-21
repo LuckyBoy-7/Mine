@@ -1,11 +1,7 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 // using DG.Tweening;
 using Mine.Managers;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Mine.UI.TMP_Text
 {

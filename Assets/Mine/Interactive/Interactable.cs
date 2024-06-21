@@ -1,5 +1,4 @@
 using System;
-using Mine.Extensions;
 using UnityEngine;
 
 namespace Mine.Interactive

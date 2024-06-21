@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using Mine.Extensions;
-using UnityEngine.Serialization;
 using static UnityEngine.Mathf;
 
 namespace Mine.States._2D
