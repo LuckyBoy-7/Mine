@@ -5,18 +5,7 @@ namespace Mine.Interactive
 {
     public class InteractableBase : MonoBehaviour
     {
-        private Collider2D _collider;
-
-        public Collider2D Collider
-        {
-            get
-            {
-                if (_collider == null)
-                    _collider = GetComponent<Collider2D>();
-                return _collider;
-            }
-        }
-
+        public Collider2D collider;
         public virtual long SortingOrder => 0;
 
         public virtual int CompareSortingOrder(InteractableBase other) => (int)Mathf.Sign(SortingOrder - other.SortingOrder);
@@ -38,8 +27,15 @@ namespace Mine.Interactive
 
         // 由EnemyManager调用以判断当前鼠标位置是否在敌人范围内
         // 这样在Drag Card的时候就知道要不要显示Selection Box了
-        public bool IsPositionInBounds(Vector2 pos) => Collider.OverlapPoint(pos);
+        public bool IsPositionInBounds(Vector2 pos) => collider.OverlapPoint(pos);
 
+        protected virtual void Awake()
+        {
+            if (collider == null)
+                collider = GetComponent<Collider2D>();
+            if (collider == null)
+                collider = gameObject.AddComponent<BoxCollider2D>();
+        }
 
         public void CursorEnter()
         {

@@ -7,11 +7,11 @@ namespace Mine.Utilities
 {
     public static class Itertools
     {
-        public static IEnumerable<Tuple<int, T>> Enumerate<T>(ICollection<T> collection, int start = 0)
+        public static IEnumerable<Tuple<int, T>> Enumerate<T>(List<T> lst, int start = 0)
         {
-            foreach (T item in collection)
+            for (int i = 0; i < lst.Count; i++)
             {
-                yield return new Tuple<int, T>(start++, item);
+                yield return new Tuple<int, T>(start++, lst[i]);
             }
         }
 

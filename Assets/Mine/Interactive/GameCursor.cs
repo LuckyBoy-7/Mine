@@ -1,8 +1,11 @@
 // ReSharper disable Unity.NoNullPropagation ，大概是说Object重载了==，如果我们用?.可能会影响unity脚本的生命周期造成错误
 
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using Mine.Managers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Mine.Interactive
@@ -13,6 +16,7 @@ namespace Mine.Interactive
     public class GameCursor : Singleton<GameCursor>
     {
         public static Vector2 MouseWorldPos => Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        public static Vector2 MouseWorldCellPos => new(Mathf.Floor(MouseWorldPos.x + 0.5f), Mathf.Floor(MouseWorldPos.y + 0.5f));
         private Vector2 PreviousMouseWorldPosition { get; set; }
         private InteractableBase PreviousInteractable { get; set; }
         private InteractableBase CurrentInteractable { get; set; }
@@ -87,7 +91,6 @@ namespace Mine.Interactive
 
         private void UpdateCurrentInteractable()
         {
-            
             // 拿到当前鼠标指向的所有的Interactable
             List<InteractableBase> hitInteractables = new();
             // 正交透视相机都适用

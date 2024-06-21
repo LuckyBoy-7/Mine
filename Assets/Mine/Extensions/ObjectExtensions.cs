@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using UnityEngine;
 
 namespace Mine.Extensions
 {
@@ -7,6 +8,8 @@ namespace Mine.Extensions
     {
         public static object DeepClone(this object orig)
         {
+            if (orig == null)
+                return null;
             Type T = orig.GetType();
             object o = Activator.CreateInstance(T);
             PropertyInfo[] PI = T.GetProperties();
@@ -14,6 +17,13 @@ namespace Mine.Extensions
             {
                 PropertyInfo P = PI[i];
                 P.SetValue(o, P.GetValue(orig));
+            }
+            
+            FieldInfo[] FI = T.GetFields();
+            for (int i = 0; i < FI.Length; i++)
+            {
+                FieldInfo F = FI[i];
+                F.SetValue(o, F.GetValue(orig));
             }
             return o;
         }
