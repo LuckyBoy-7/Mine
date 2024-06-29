@@ -26,5 +26,14 @@ namespace Lucky.Extensions
                 lst.Add(item);
             }
         }
+
+        public static T Pop<T>(this List<T> lst, int idx)
+        {
+            if (idx < 0)
+                idx = lst.Count + idx;
+            T retval = lst[idx];
+            lst.RemoveAt(idx);
+            return retval;
+        }
     }
 }
