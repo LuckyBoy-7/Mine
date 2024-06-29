@@ -1,4 +1,5 @@
 using System;
+using Lucky.Extensions;
 using UnityEngine;
 
 namespace Lucky.Utilities
@@ -8,24 +9,22 @@ namespace Lucky.Utilities
     /// </summary>
     public class Ease
     {
-        private float start;
-        private float end;
         private float duration;
         private float timestamp;
         private Func<float, float> easeFunction;
+        private bool isLoop;
 
-        public Ease(float start, float end, float duration, Func<float, float> easeFunction)
+        public Ease(float duration, Func<float, float> easeFunction, bool isLoop = true)
         {
             timestamp = Time.time;
-            this.start = start;
-            this.end = end;
             this.duration = duration;
             this.easeFunction = easeFunction;
+            this.isLoop = isLoop;
         }
 
         private float elapse => Time.time - timestamp;
-        public float curVal => start + (end - start) * easeFunction(elapse / duration);
-        public bool isOver => elapse > duration;
+        public float curVal => easeFunction((elapse / duration).GetDecimal());
+        public bool isOver => elapse > duration && !isLoop;
 
         public static float Linear(float t)
         {
