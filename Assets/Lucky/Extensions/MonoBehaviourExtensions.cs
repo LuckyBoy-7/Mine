@@ -58,7 +58,7 @@ namespace Lucky.Extensions
                 callback?.Invoke();
             }
         }
-        
+
         public static void DoWaitUntilEndOfFrame(this MonoBehaviour orig, Action callback)
         {
             orig.StartCoroutine(Tick());
@@ -69,5 +69,8 @@ namespace Lucky.Extensions
                 callback?.Invoke();
             }
         }
+
+        /// 主要mathf是结构体，插不进去，但写在这又有点怪怪的，但确实相对还比较常用（？
+        public static float PI(this MonoBehaviour orig, float multiplier = 1) => Mathf.PI * multiplier;
     }
 }

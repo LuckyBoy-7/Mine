@@ -4,8 +4,8 @@ namespace Lucky.Utilities
 {
     public static class Timer
     {
-        private static float GetTime(bool realtime = false) => realtime ? Time.realtimeSinceStartup : Time.time;
-        private static float GetDeltaTime(bool realtime = false) => realtime ? Time.unscaledDeltaTime : Time.deltaTime;
+        public static float GetTime(bool realtime = false) => realtime ? Time.realtimeSinceStartup : Time.time;
+        public static float GetDeltaTime(bool realtime = false) => realtime ? Time.unscaledDeltaTime : Time.deltaTime;
 
         /// 每一个interval开始的时候触发 
         public static bool OnInterval(float interval, bool realtime = false)
