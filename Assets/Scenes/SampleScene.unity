@@ -301,13 +301,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1008190496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ada283ab677d474eaf3443cd4d3201a, type: 3}
+  m_Script: {fileID: 11500000, guid: f20eaa594c76c0f4ab1d3caf50e90e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartZero: 1
-  duration: 2
-  frequency: 3
-  removeSelfOnFinish: 0
+  sr: {fileID: 0}
+  timer: 5
 --- !u!1 &1384948279
 GameObject:
   m_ObjectHideFlags: 0

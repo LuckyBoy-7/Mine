@@ -2,11 +2,21 @@ using UnityEngine;
 
 namespace Lucky.Utilities
 {
-    public class Timer
+    public static class Timer
     {
-        public static bool OnInterval(float interval)
+        private static float GetTime(bool realtime = false) => realtime ? Time.realtimeSinceStartup : Time.time;
+        private static float GetDeltaTime(bool realtime = false) => realtime ? Time.unscaledDeltaTime : Time.deltaTime;
+
+        /// 每一个interval开始的时候触发 
+        public static bool OnInterval(float interval, bool realtime = false)
         {
-            return (int)((Time.time - (double)Time.deltaTime) / interval) < (int)((double)Time.time / interval);
+            return (int)((GetTime(realtime) - (double)GetDeltaTime(realtime)) / interval) < (int)((double)GetTime(realtime) / interval);
+        }
+
+        /// 获取按interval交替的bool
+        public static bool BetweenInterval(float interval, bool realtime = false)
+        {
+            return GetTime(realtime) % (interval * 2f) > interval;
         }
     }
 }
