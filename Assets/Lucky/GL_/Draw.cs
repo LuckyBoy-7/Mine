@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Lucky.Utilities;
 using UnityEngine;
 
@@ -6,9 +7,9 @@ namespace Lucky.GL_
 {
     public static class Draw
     {
-        static Material lineMaterial;
+        public static Material lineMaterial;
 
-        static void CreateLineMaterial()
+        public static void CreateLineMaterial()
         {
             if (!lineMaterial)
             {
@@ -117,7 +118,6 @@ namespace Lucky.GL_
             var transform = orig.transform;
             CreateLineMaterial();
             lineMaterial.SetPass(0);
-            GL.LoadPixelMatrix();
 
             GL.PushMatrix();
             GL.MultMatrix(transform.localToWorldMatrix);
@@ -128,6 +128,38 @@ namespace Lucky.GL_
             GL.Vertex3(pos1.x + width, pos1.y, pos1.z);
             GL.Vertex3(pos1.x + width, pos1.y + height, pos1.z);
             GL.Vertex3(pos1.x, pos1.y + height, pos1.z);
+
+            GL.End();
+            GL.PopMatrix();
+        }
+
+
+        public static void DrawDot(this MonoBehaviour orig, Vector3 pos, Color color)
+        {
+            orig.DrawRect(pos - (Vector3)Vector2.one * 0.5f, 1, 1, color);
+        }
+
+        public static void DrawDots(this MonoBehaviour orig, IEnumerable<Vector3> poses, Color color)
+        {
+            var transform = orig.transform;
+            CreateLineMaterial();
+            lineMaterial.SetPass(0);
+            GL.LoadPixelMatrix();
+
+            GL.PushMatrix();
+            GL.MultMatrix(transform.localToWorldMatrix);
+            GL.Begin(GL.QUADS);
+
+            GL.Color(color);
+            float halfWidth = 0.5f;
+            float halfHeight = 0.5f;
+            foreach (var pos in poses)
+            {
+                GL.Vertex3(pos.x - halfWidth, pos.y - halfHeight, pos.z);
+                GL.Vertex3(pos.x + halfWidth, pos.y - halfHeight, pos.z);
+                GL.Vertex3(pos.x + halfWidth, pos.y + halfHeight, pos.z);
+                GL.Vertex3(pos.x - halfWidth, pos.y + halfHeight, pos.z);
+            }
 
             GL.End();
             GL.PopMatrix();
