@@ -248,10 +248,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1004957973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 328b773efdda45849a5618c0b54f6005, type: 3}
+  m_Script: {fileID: 11500000, guid: cb4e3230ea804a36a917efee36f0e4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Percent: 0.557
+  rows: 6
+  angleSize: 64
+  WipeIn: 0
+  Percent: 0.452
+  gap: 0.328
 --- !u!1 &1384948279
 GameObject:
   m_ObjectHideFlags: 0
