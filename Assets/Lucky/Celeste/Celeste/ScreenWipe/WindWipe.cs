@@ -4,24 +4,18 @@ using Lucky.GL_;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Lucky.Celeste.Celeste
+namespace Lucky.Celeste.Celeste.ScreenWipe
 {
     // 两个方块为一组，行与行之间错开来，改ratioY
-    public class WindWipe : MonoBehaviour
+    public class WindWipe : ScreenWipe
     {
         public bool WipeIn;
         [Range(0, 1)] public float Percent;
-        [Range(0, 1)] public float amplitude = 300;
+        [Range(0, 1)] public float amplitude = 0.3f;
 
         private int size = 40; // 每个块的大小
         private int columns;
         private int rows;
-
-        private void Awake()
-        {
-            float cameraHeight = Camera.main.orthographicSize * 2;
-            transform.localScale = Vector3.one / (1080 / cameraHeight);
-        }
 
         private void OnRenderObject()
         {

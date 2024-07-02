@@ -1,6 +1,5 @@
 using System;
-using System.Runtime.CompilerServices;
-using Lucky.Extensions;
+using static Lucky.Utilities.MathUtils;
 using Lucky.Utilities;
 using UnityEngine;
 using Random = System.Random;
@@ -13,9 +12,9 @@ namespace Lucky.Celeste.Monocle
         private float Rate = 1;
         public Action<float> OnUpdate;
         public bool realtime;
-        private float T => this.PI(2) / Frequency / Rate;
+        private float T => PI(2) / Frequency / Rate;
 
-        private float W => this.PI(2) / T;
+        private float W => PI(2) / T;
 
         // private float W => Frequency * Rate;
         private float counter = 0;
@@ -26,7 +25,7 @@ namespace Lucky.Celeste.Monocle
             set
             {
                 // 不至于溢出(不过想不明白为什么是8PI)
-                // counter = (value + this.PI(8)) % this.PI(8);
+                // counter = (value + PI(8)) % PI(8);
                 counter = (value % T + T) % T;
                 Value = (float)Math.Sin(counter);
                 ValueOverTwo = (float)Math.Sin(counter / 2f);
@@ -62,7 +61,7 @@ namespace Lucky.Celeste.Monocle
         // 抽一个x
         public SineWave Randomize()
         {
-            // Counter = (float)(new Random().NextDouble() * this.PI(2) * 2.0);
+            // Counter = (float)(new Random().NextDouble() * PI(2) * 2.0);
             Counter = (float)(new Random().NextDouble() * W);
             return this;
         }
@@ -76,13 +75,13 @@ namespace Lucky.Celeste.Monocle
         // 从正弦波的极大值开始
         public void StartUp()
         {
-            Counter = this.PI(0.5f);
+            Counter = PI(0.5f);
         }
 
         // 从正弦波的极小值开始
         public void StartDown()
         {
-            Counter = this.PI(1.5f);
+            Counter = PI(1.5f);
         }
     }
 }

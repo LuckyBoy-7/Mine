@@ -26,12 +26,12 @@ namespace Lucky.GL_.Test
             //     );
             // }
 
-            // this.DrawRect(Vector3.zero, 100, 200, Color.green);
+            this.DrawRect(Vector3.zero, 100, 200, Color.green);
 
             // this.DrawTriangle(Vector2.zero, Vector2.one * 50, Vector2.up * 50, Color.green);
 
             // this.DrawTriangleStrip(Color.green, Vector2.one * 50, Vector2.up * 50, Vector3.zero, new Vector2(25, -25));
-            this.DrawLines(Color.green, lineWidth, Vector3.zero, new(1, 0), new(1, -1), new Vector3(4, -1));
+            // this.DrawLines(Color.green, lineWidth, Vector3.zero, new(1, 0), new(1, -1), new Vector3(4, -1));
         }
     }
 }

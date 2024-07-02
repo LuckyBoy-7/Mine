@@ -84,6 +84,32 @@ namespace Lucky.GL_
             GL.PopMatrix();
         }
 
+        public static void DrawTriangle3By3(
+            this MonoBehaviour orig,
+            Vector3[] poses,
+            Color color
+        )
+        {
+            var transform = orig.transform;
+            CreateLineMaterial();
+            lineMaterial.SetPass(0);
+
+            GL.PushMatrix();
+            GL.MultMatrix(transform.localToWorldMatrix);
+            GL.Begin(GL.TRIANGLES);
+
+            GL.Color(color);
+            for (int i = 0; i < poses.Length; i += 3)
+            {
+                GL.Vertex3(poses[i].x, poses[i].y, poses[i].z);
+                GL.Vertex3(poses[i + 1].x, poses[i + 1].y, poses[i + 1].z);
+                GL.Vertex3(poses[i + 2].x, poses[i + 2].y, poses[i + 2].z);
+            }
+
+            GL.End();
+            GL.PopMatrix();
+        }
+
         /// 每三个顶点绘制一个三角形（所以也不是严格意义上的多边形）
         public static void DrawTriangleStrip(
             this MonoBehaviour orig,
@@ -109,7 +135,7 @@ namespace Lucky.GL_
 
         public static void DrawRect(
             this MonoBehaviour orig,
-            Vector3 pos1,
+            Vector3 pos,
             float width,
             float height,
             Color color
@@ -124,10 +150,10 @@ namespace Lucky.GL_
             GL.Begin(GL.QUADS);
 
             GL.Color(color);
-            GL.Vertex3(pos1.x, pos1.y, pos1.z);
-            GL.Vertex3(pos1.x + width, pos1.y, pos1.z);
-            GL.Vertex3(pos1.x + width, pos1.y + height, pos1.z);
-            GL.Vertex3(pos1.x, pos1.y + height, pos1.z);
+            GL.Vertex3(pos.x, pos.y, pos.z);
+            GL.Vertex3(pos.x + width, pos.y, pos.z);
+            GL.Vertex3(pos.x + width, pos.y + height, pos.z);
+            GL.Vertex3(pos.x, pos.y + height, pos.z);
 
             GL.End();
             GL.PopMatrix();

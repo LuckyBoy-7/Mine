@@ -1,10 +1,15 @@
+using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Lucky.Celeste.Monocle
 {
     public static class Calc
     {
+        public static readonly Random Random = new();
+
+
         /// <summary>
         /// 将传入的16进制字符转化为十进制
         /// </summary>
@@ -22,6 +27,7 @@ namespace Lucky.Celeste.Monocle
             {
                 num = 1;
             }
+
             // 剩下数字长度够6的话就parse返回
             if (hex.Length - num >= 6)
             {
@@ -38,6 +44,7 @@ namespace Lucky.Celeste.Monocle
             {
                 return HexToColor(num5);
             }
+
             // 还不行就fallback
             return Color.white;
         }
@@ -52,6 +59,49 @@ namespace Lucky.Celeste.Monocle
                 g = (byte)(hex >> 8),
                 b = (byte)hex
             };
+        }
+
+
+        public static float NextFloat(this Random random)
+        {
+            return (float)random.NextDouble();
+        }
+
+        public static float NextFloat(this Random random, float max)
+        {
+            return random.NextFloat() * max;
+        }
+
+        public static int Range(this Random random, int min, int max)
+        {
+            return min + random.Next(max - min);
+        }
+
+        public static float Range(this Random random, float min, float max)
+        {
+            return min + random.NextFloat(max - min);
+        }
+
+        public static T Choose<T>(this Random random, params T[] choices)
+        {
+            return choices[random.Next(choices.Length)];
+        }
+
+        public static Vector2 AngleToVector(float angleRadians, float length)
+        {
+            return new Vector2((float)Math.Cos(angleRadians), (float)Math.Sin(angleRadians)) * length;
+        }
+        
+        /// 根据val在oldMin和oldMax之间的比例，放置到newMin和newMax之间
+        public static float Map(float val, float min, float max, float newMin = 0f, float newMax = 1f)
+        {
+            return (val - min) / (max - min) * (newMax - newMin) + newMin;
+        }
+        
+        // 向量往右转90度
+        public static Vector2 TurnRight(this Vector2 vec)
+        {
+            return new Vector2(vec.y, -vec.x);
         }
     }
 }
