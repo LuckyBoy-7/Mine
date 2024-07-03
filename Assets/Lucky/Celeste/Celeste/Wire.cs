@@ -18,6 +18,7 @@ namespace Lucky.Celeste.Celeste
         private void Start()
         {
             Curve = new SimpleCurve(from.position, to.position, Vector2.zero);
+            Curve.InitLine();
             Random random = new Random((int)Mathf.Min(from.position.x, to.position.y));
             sineX = (float)random.NextDouble() * 4;
             sineY = (float)random.NextDouble() * 4;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Lucky.Extensions;
 using Lucky.Utilities;
 using UnityEngine;
 
@@ -52,7 +53,7 @@ namespace Lucky.GL_
             this MonoBehaviour orig,
             Color color,
             float lineWidth = 1,
-            params Vector3[] poses
+            params Vector2[] poses
         )
         {
             foreach (var (pos1, pos2) in Itertools.Pairwise(poses))
@@ -101,6 +102,44 @@ namespace Lucky.GL_
             GL.Color(color);
             for (int i = 0; i < poses.Length; i += 3)
             {
+                GL.Vertex3(poses[i].x, poses[i].y, poses[i].z);
+                GL.Vertex3(poses[i + 1].x, poses[i + 1].y, poses[i + 1].z);
+                GL.Vertex3(poses[i + 2].x, poses[i + 2].y, poses[i + 2].z);
+            }
+
+            GL.End();
+            GL.PopMatrix();
+        }
+
+        private static List<Color> colors = new List<Color>
+        {
+            Color.black,
+            Color.blue,
+            Color.cyan,
+            Color.gray,
+            Color.green,
+            Color.magenta,
+            Color.red,
+            Color.white,
+            Color.yellow
+        };
+
+        public static void DrawTriangle3By3WithRandomColor(
+            this MonoBehaviour orig,
+            Vector3[] poses
+        )
+        {
+            var transform = orig.transform;
+            CreateLineMaterial();
+            lineMaterial.SetPass(0);
+
+            GL.PushMatrix();
+            GL.MultMatrix(transform.localToWorldMatrix);
+            GL.Begin(GL.TRIANGLES);
+
+            for (int i = 0; i < poses.Length; i += 3)
+            {
+                GL.Color(colors[(i / 3) % colors.Count]);
                 GL.Vertex3(poses[i].x, poses[i].y, poses[i].z);
                 GL.Vertex3(poses[i + 1].x, poses[i + 1].y, poses[i + 1].z);
                 GL.Vertex3(poses[i + 2].x, poses[i + 2].y, poses[i + 2].z);
@@ -160,9 +199,9 @@ namespace Lucky.GL_
         }
 
 
-        public static void DrawDot(this MonoBehaviour orig, Vector3 pos, Color color)
+        public static void DrawDot(this MonoBehaviour orig, Vector3 pos, Color color, float size=1)
         {
-            orig.DrawRect(pos - (Vector3)Vector2.one * 0.5f, 1, 1, color);
+            orig.DrawRect(pos - (Vector3)Vector2.one * (0.5f * size), size, size, color);
         }
 
         public static void DrawDots(this MonoBehaviour orig, IEnumerable<Vector3> poses, Color color)

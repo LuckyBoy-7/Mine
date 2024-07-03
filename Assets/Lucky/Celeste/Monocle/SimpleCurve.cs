@@ -1,17 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lucky.Celeste.Monocle
 {
     public struct SimpleCurve
     {
+        public Vector2 Begin;
+        public Vector2 End;
+        public Vector2 Control;
+        private LineRenderer line;
+
         public SimpleCurve(Vector2 begin, Vector2 end, Vector2 control)
         {
             Begin = begin;
             End = end;
             Control = control;
-            line = new GameObject("CurveLine").AddComponent<LineRenderer>();
-            line.material = Resources.Load<Material>("Materials/LineRenderer");
-            line.numCapVertices = 90;
+            line = null;
         }
 
         public void DoubleControl()
@@ -29,9 +33,17 @@ namespace Lucky.Celeste.Monocle
             // 这里从易读性考虑把double float的转化都删了
             // 二阶贝塞尔曲线
             // B(t) = (1-t)**2 * P0 + 2t(1-t)P1 + t**2 *P2
-            // 记得y方向要取反
             float num = 1.0f - percent;
             return num * num * Begin + 2.0f * num * percent * Control + percent * percent * End;
+        }
+
+        public List<Vector2> GetPoints(int resolution = 100)
+        {
+            List<Vector2> res = new();
+            for (int i = 0; i <= resolution; i++)
+                res.Add(GetPoint((float)i / resolution));
+
+            return res;
         }
 
         /// <summary>
@@ -51,6 +63,13 @@ namespace Lucky.Celeste.Monocle
             }
 
             return num;
+        }
+
+        public void InitLine()
+        {
+            line = new GameObject("CurveLine").AddComponent<LineRenderer>();
+            line.material = Resources.Load<Material>("Materials/LineRenderer");
+            line.numCapVertices = 90;
         }
 
         public void Render(Vector2 offset, Color color, int resolution, float thickness = 0.2f)
@@ -78,13 +97,5 @@ namespace Lucky.Celeste.Monocle
         {
             Render(Vector2.zero, color, resolution, thickness);
         }
-
-        public Vector2 Begin;
-
-        public Vector2 End;
-
-        public Vector2 Control;
-
-        private LineRenderer line;
     }
 }
