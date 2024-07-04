@@ -18,7 +18,6 @@ namespace Lucky.Celeste.Monocle
             return (byte)"0123456789ABCDEF".IndexOf(char.ToUpper(c));
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public static Color HexToColor(string hex)
         {
             int num = 0;
@@ -49,7 +48,6 @@ namespace Lucky.Celeste.Monocle
             return Color.white;
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public static Color HexToColor(int hex)
         {
             return new Color
@@ -102,6 +100,11 @@ namespace Lucky.Celeste.Monocle
         public static Vector2 TurnRight(this Vector2 vec)
         {
             return new Vector2(vec.y, -vec.x);
+        }
+        
+        public static float Clamp(float value, float min, float max)
+        {
+            return Math.Min(Math.Max(value, min), max);
         }
     }
 }
