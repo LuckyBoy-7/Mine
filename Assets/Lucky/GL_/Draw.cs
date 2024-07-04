@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Lucky.Celeste.Monocle;
 using Lucky.Extensions;
 using Lucky.Utilities;
 using UnityEngine;
+using static Lucky.Utilities.MathUtils;
 
 namespace Lucky.GL_
 {
@@ -199,7 +201,7 @@ namespace Lucky.GL_
         }
 
 
-        public static void DrawDot(this MonoBehaviour orig, Vector3 pos, Color color, float size=1)
+        public static void DrawDot(this MonoBehaviour orig, Vector3 pos, Color color, float size = 1)
         {
             orig.DrawRect(pos - (Vector3)Vector2.one * (0.5f * size), size, size, color);
         }
@@ -255,6 +257,24 @@ namespace Lucky.GL_
 
             GL.End();
             GL.PopMatrix();
+        }
+
+        public static void DrawWireCircle(
+            this MonoBehaviour orig,
+            Vector2 center,
+            float radius,
+            Color color,
+            float lineWidth = 1,
+            int resolution = 30
+        )
+        {
+            Vector2 prePoint = center + Vector2.right * radius;
+            for (int i = 1; i <= resolution; i++)
+            {
+                Vector2 curPoint = center + Calc.AngleToVector((float)i / resolution * PI(2), radius);
+                orig.DrawLine(prePoint, curPoint, color, lineWidth);
+                prePoint = curPoint;
+            }
         }
     }
 }

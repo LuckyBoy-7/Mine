@@ -248,11 +248,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1004957973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c09b5ac6887b41f7b3adc6f8ba54362c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d982d01b6264176b37775ab0b99ce93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Percent: 0
   WipeIn: 1
+  percent: 0.289
 --- !u!1 &1384948279
 GameObject:
   m_ObjectHideFlags: 0
