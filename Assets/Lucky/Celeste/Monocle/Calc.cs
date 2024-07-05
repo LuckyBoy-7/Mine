@@ -89,22 +89,43 @@ namespace Lucky.Celeste.Monocle
         {
             return new Vector2((float)Math.Cos(angleRadians), (float)Math.Sin(angleRadians)) * length;
         }
-        
+
         /// 根据val在oldMin和oldMax之间的比例，放置到newMin和newMax之间
         public static float Map(float val, float min, float max, float newMin = 0f, float newMax = 1f)
         {
             return (val - min) / (max - min) * (newMax - newMin) + newMin;
         }
-        
+
+        /// Map后clamp
+        public static float ClampedMap(float val, float min, float max, float newMin = 0f, float newMax = 1f)
+        {
+            return Math.Clamp((val - min) / (max - min), 0f, 1f) * (newMax - newMin) + newMin;
+        }
+
         // 向量往右转90度
         public static Vector2 TurnRight(this Vector2 vec)
         {
             return new Vector2(vec.y, -vec.x);
         }
-        
+
         public static float Clamp(float value, float min, float max)
         {
             return Math.Min(Math.Max(value, min), max);
         }
+
+        /// 相当于MoveTowards
+        public static float Approach(float val, float target, float maxMove)
+        {
+            if (val <= target)
+            {
+                return Math.Min(val + maxMove, target);
+            }
+
+            return Math.Max(val - maxMove, target);
+        }
+
+
+        public static float Mod(int x, int m) => (x % m + m) % m;
+        public static float Mod(float x, float m) => (x % m + m) % m;
     }
 }
