@@ -9,7 +9,10 @@ namespace Lucky.Celeste.Celeste.Backdrop
     {
         public static float ScreenWidth = 320;
         public static float ScreenHeight = 180;
+
         public bool isVisible = true;
+        public Color color = Color.white;
+        protected Camera camera;
 
         private struct Segment
         {
@@ -23,6 +26,7 @@ namespace Lucky.Celeste.Celeste.Backdrop
         {
             float cameraHeight = Camera.main.orthographicSize * 2;
             transform.localScale = Vector3.one * cameraHeight / ScreenHeight;
+            camera = Camera.main;
         }
 
         /// <summary>

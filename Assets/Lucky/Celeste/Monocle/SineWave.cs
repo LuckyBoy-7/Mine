@@ -8,6 +8,7 @@ namespace Lucky.Celeste.Monocle
 {
     public class SineWave : MonoBehaviour
     {
+        private bool customControl = false;
         private float Frequency = 1;
         private float Rate = 1;
         public Action<float> OnUpdate;
@@ -44,6 +45,18 @@ namespace Lucky.Celeste.Monocle
         }
 
         public void Update()
+        {
+            if (!customControl)
+                CallUpdate();
+        }
+
+        public SineWave SetCustomControl()
+        {
+            customControl = true;
+            return this;
+        }
+
+        public void CallUpdate()
         {
             Counter += W * Timer.GetDeltaTime(realtime);
             if (OnUpdate != null)
