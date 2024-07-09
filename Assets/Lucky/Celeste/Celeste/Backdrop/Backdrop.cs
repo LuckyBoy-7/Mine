@@ -12,7 +12,7 @@ namespace Lucky.Celeste.Celeste.Backdrop
 
         public bool isVisible = true;
         public Color color = Color.white;
-        protected Camera camera;
+        protected new Camera camera;
 
         private struct Segment
         {
