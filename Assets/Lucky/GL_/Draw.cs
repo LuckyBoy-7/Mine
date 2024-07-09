@@ -206,6 +206,12 @@ namespace Lucky.GL_
             orig.DrawRect(pos - (Vector3)Vector2.one * (0.5f * size), size, size, color);
         }
 
+        public static void DrawDot(this MonoBehaviour orig, Vector3 pos, Color color, Vector2 size)
+        {
+            orig.DrawRect(pos - (Vector3)size * 0.5f, size.x, size.y, color);
+        }
+
+
         public static void DrawDots(this MonoBehaviour orig, IEnumerable<Vector3> poses, Color color)
         {
             var transform = orig.transform;
