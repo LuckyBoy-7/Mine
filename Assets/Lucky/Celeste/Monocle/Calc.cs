@@ -127,11 +127,15 @@ namespace Lucky.Celeste.Monocle
 
         public static float Mod(int x, int m) => (x % m + m) % m;
         public static float Mod(float x, float m) => (x % m + m) % m;
-        
+
         public static Vector2 Range(this Random random, Vector2 min, Vector2 max)
         {
             return min + new Vector2(random.NextFloat(max.x - min.x), random.NextFloat(max.y - min.y));
         }
-        
+
+        public static float LerpClamp(float value1, float value2, float lerp)
+        {
+            return Mathf.Lerp(value1, value2, Mathf.Clamp(lerp, 0f, 1f));
+        }
     }
 }
