@@ -1,4 +1,3 @@
-using Lucky.Interactive;
 using UnityEngine;
 
 namespace Lucky.Interactive
@@ -10,9 +9,8 @@ namespace Lucky.Interactive
         protected float OnCursorPressScaleMultiplier = 0.95f;
         private bool isMouseButtonKeepHolding;
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
             origScale = transform.localScale;
         }
 

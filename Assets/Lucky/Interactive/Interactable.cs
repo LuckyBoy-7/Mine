@@ -5,18 +5,37 @@ namespace Lucky.Interactive
 {
     public class Interactable : InteractableBase
     {
-        public new SpriteRenderer renderer;
+        private Collider2D _collider;
+
+        public Collider2D Collider
+        {
+            get
+            {
+                if (_collider == null)
+                    _collider = GetComponent<Collider2D>();
+                return _collider;
+            }
+        }
+
+        private SpriteRenderer _renderer;
+
+        public SpriteRenderer Renderer
+        {
+            get
+            {
+                if (_renderer == null)
+                    _renderer = GetComponent<SpriteRenderer>();
+                return _renderer;
+            }
+        }
+
+        protected override SortingLayerType sortingLayerType => SortingLayerType.Default;
 
         // SortingLayer.GetLayerValueFromID，通过id返回对应的层序号，越高的层序号越大从0开始
-        public override long SortingOrder => SortingLayer.GetLayerValueFromID(renderer.sortingLayerID) * Int32.MaxValue + renderer.sortingOrder;
+        protected override long SortingOrder =>
+            (SortingLayer.GetLayerValueFromID(Renderer.sortingLayerID) + OffsetSortingLayer) * 10000 + Renderer.sortingOrder;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            if (renderer == null)
-                renderer = GetComponent<SpriteRenderer>();
-            if (renderer == null)
-                renderer = gameObject.AddComponent<SpriteRenderer>();
-        }
+        public override bool IsPositionInBounds(Vector2 pos, RectTransform trans = null) => Collider.OverlapPoint(pos);
+        public override Vector2 BoundsCheckPos => GameCursor.MouseWorldPos;
     }
 }

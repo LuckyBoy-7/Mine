@@ -14,9 +14,16 @@ namespace Lucky.Extensions
         /// <param name="interval">调用时间间隔</param>
         /// <param name="isScaledTime">是否受时间缩放影响</param>
         /// <param name="isOneShot">是否就执行一次</param>
-        public static void CreateFuncTimer(this MonoBehaviour orig, Action callback, Func<float> interval, bool isScaledTime = true, bool isOneShot = false)
+        public static void CreateFuncTimer(
+            this MonoBehaviour orig,
+            Action callback,
+            Func<float> interval,
+            bool isScaledTime = true,
+            bool isOneShot = false,
+            bool isStartImmediate = false
+        )
         {
-            float elapse = 0;
+            float elapse = isStartImmediate ? interval() : 0;
             orig.StartCoroutine(Tick());
 
             IEnumerator Tick()
@@ -26,7 +33,7 @@ namespace Lucky.Extensions
                     elapse += isScaledTime ? Time.deltaTime : Time.unscaledDeltaTime;
                     if (elapse >= interval())
                     {
-                        elapse -= interval();
+                        elapse = 0;
                         callback();
                         if (isOneShot)
                             yield break;
@@ -70,5 +77,9 @@ namespace Lucky.Extensions
             }
         }
 
+        public static float Dist(this MonoBehaviour orig, MonoBehaviour other) => (orig.transform.position - other.transform.position).magnitude;
+        public static float Dist(this MonoBehaviour orig, Vector3 pos) => (orig.transform.position - pos).magnitude;
+        public static Vector3 Dir(this MonoBehaviour orig, MonoBehaviour other) => (other.transform.position - orig.transform.position).normalized;
+        public static Vector3 Dir(this MonoBehaviour orig, Vector3 pos) => (pos - orig.transform.position).normalized;
     }
 }

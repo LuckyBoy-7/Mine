@@ -1,20 +1,19 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Lucky.Managers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
-namespace Lucky.Interactive 
+namespace Lucky.Interactive
 {
     /// <summary>
     /// 注意先把相机大小放大100倍
     /// </summary>
     public class GameCursor : Singleton<GameCursor>
     {
-        public static Vector2 MouseWorldPos => Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        public HashSet<InteractableUIBase> interactableUIs = new();
+        public static Vector2 MouseWorldPos => Camera.main.ScreenToWorldPoint(MouseScreenPos);
         public static Vector2 MouseWorldCellPos => new(Mathf.Floor(MouseWorldPos.x + 0.5f), Mathf.Floor(MouseWorldPos.y + 0.5f));
+        public static Vector2 MouseScreenPos => Input.mousePosition;
         private Vector2 PreviousMouseWorldPosition { get; set; }
         private InteractableBase PreviousInteractable { get; set; }
         private InteractableBase CurrentInteractable { get; set; }
@@ -34,22 +33,25 @@ namespace Lucky.Interactive
             if (PreviousMouseWorldPosition == default)
                 PreviousMouseWorldPosition = MouseWorldPos;
 
-            if (CurrentInteractable != PreviousInteractable)
-                PreviousInteractable?.CursorExit();
-            if (CurrentInteractable != PreviousInteractable)
-                CurrentInteractable?.CursorEnter();
-            CurrentInteractable?.CursorHover();
+            if (CurrentInteractable != PreviousInteractable && PreviousInteractable != null)
+                PreviousInteractable.CursorExit();
+            if (CurrentInteractable != PreviousInteractable && CurrentInteractable != null)
+                CurrentInteractable.CursorEnter();
+            if (CurrentInteractable != null)
+                CurrentInteractable.CursorHover();
             if (Input.GetMouseButtonDown(0))
             {
                 MouseButtonDownTimestamp = Time.realtimeSinceStartup;
                 MouseButtonDownInteractable = CurrentInteractable;
-                CurrentInteractable?.CursorPress();
+                if (CurrentInteractable)
+                    CurrentInteractable.CursorPress();
             }
 
             if (Input.GetMouseButton(0))
             {
                 Vector2 delta = MouseWorldPos - PreviousMouseWorldPosition;
-                MouseButtonDownInteractable?.CursorDrag(delta);
+                if (MouseButtonDownInteractable != null)
+                    MouseButtonDownInteractable.CursorDrag(delta);
 
                 // longPress
                 if (delta.magnitude > longPressOffsetTolerance)
@@ -57,7 +59,8 @@ namespace Lucky.Interactive
                 if (RealtimeSinceMouseButtonDown >= longPressTimeThreshold && !IsLongPressShake)
                 {
                     IsLongPressShake = true;
-                    MouseButtonDownInteractable?.CursorLongPress();
+                    if (MouseButtonDownInteractable != null)
+                        MouseButtonDownInteractable.CursorLongPress();
                 }
 
                 // wipe
@@ -75,12 +78,15 @@ namespace Lucky.Interactive
             if (Input.GetMouseButtonUp(0))
             {
                 IsLongPressShake = false;
-                if (RealtimeSinceMouseButtonDown <= clickTimeThreshold)
-                    MouseButtonDownInteractable?.CursorClick();
-                MouseButtonDownInteractable?.CursorRelease();
+                if (MouseButtonDownInteractable != null)
+                {
+                    if (RealtimeSinceMouseButtonDown <= clickTimeThreshold)
+                        MouseButtonDownInteractable.CursorClick();
+                    MouseButtonDownInteractable.CursorRelease();
+                    if (MouseButtonDownInteractable.IsPositionInBounds(MouseWorldPos))
+                        MouseButtonDownInteractable.CursorReleaseInBounds();
+                }
 
-                if (MouseButtonDownInteractable != null && MouseButtonDownInteractable.IsPositionInBounds(MouseWorldPos))
-                    MouseButtonDownInteractable?.CursorReleaseInBounds();
                 MouseButtonDownInteractable = null;
             }
 
@@ -99,6 +105,12 @@ namespace Lucky.Interactive
                     hitInteractables.Add(component);
             }
 
+            foreach (InteractableUIBase ui in interactableUIs)
+            {
+                if (ui.IsPositionInBounds(ui.BoundsCheckPos))
+                    hitInteractables.Add(ui);
+            }
+
             // 找个最高的
             InteractableBase topInteractable = null;
             foreach (var curInteractable in hitInteractables)
@@ -111,5 +123,7 @@ namespace Lucky.Interactive
             PreviousInteractable = CurrentInteractable;
             CurrentInteractable = topInteractable;
         }
+
+        public bool IsPointerOverInteractable() => CurrentInteractable != null;
     }
 }
