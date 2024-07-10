@@ -68,7 +68,7 @@ namespace Lucky.Celeste.Celeste.Backdrop
                 // 同时表示了一定的偏移和旋转
                 float k = (float)(PI(-0.5f) + Math.Sin(particles[i].RotationCounter * particles[i].MaxRotate));
                 vector += Calc.AngleToVector(k, 4f);
-                draw.Draw(mtexture, vector, colors[particles[i].Color] * fade, false, 1, k - 0.8f);
+                draw.Draw(mtexture, vector, colors[particles[i].Color] * fade, Vector2.one, k - 0.8f, false);
             }
         }
     }

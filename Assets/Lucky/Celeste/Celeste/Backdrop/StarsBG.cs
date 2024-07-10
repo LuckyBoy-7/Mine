@@ -98,10 +98,10 @@ namespace Lucky.Celeste.Celeste.Backdrop
                     position.y = Calc.Mod(position.y, ScreenHeight);
 
                     for (int j = 0; j < colors.Length; j++)
-                        draw.Draw(sprite, position + Vector2.up * j, colors[j].WithA(colors[j].a * fade), useWorldPos: false);
+                        draw.Draw(sprite, position + Vector2.up * j, colors[j].WithA(colors[j].a * fade), Vector2.one, useWorldPos: false);
                 }
 
-                draw.Draw(sprite, position, color.WithA(color.a * fade), useWorldPos: false); // 这样就能在不影响原来透明度的情况下渐变
+                draw.Draw(sprite, position, color.WithA(color.a * fade), Vector2.one, useWorldPos: false); // 这样就能在不影响原来透明度的情况下渐变
             }
         }
     }

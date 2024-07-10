@@ -120,7 +120,7 @@ namespace Lucky.Celeste.Celeste.Backdrop
                     x = -64f + Calc.Mod(Stars[i].Position.x - position.x * Scroll.x, ScreenWidth + 128),
                     y = -16f + Calc.Mod(Stars[i].Position.y - position.y * Scroll.y, ScreenHeight + 32)
                 };
-                draw.Draw(Stars[i].Texture, vector, Stars[i].Color, useWorldPos: false);
+                draw.Draw(Stars[i].Texture, vector, Stars[i].Color, Vector2.one, useWorldPos: false);
             }
         }
     }

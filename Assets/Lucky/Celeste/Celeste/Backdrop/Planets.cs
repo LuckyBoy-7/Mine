@@ -51,7 +51,7 @@ namespace Lucky.Celeste.Celeste.Backdrop
                     x = -32f + Calc.Mod(planets[i].Position.x - camera.transform.position.x, MapWidth),
                     y = -32f + Calc.Mod(planets[i].Position.y - camera.transform.position.y, MapHeight)
                 };
-                draw.Draw(planets[i].Texture, vector, color, false);
+                draw.Draw(planets[i].Texture, vector, color, Vector2.one, useWorldPos: false);
             }
         }
     }

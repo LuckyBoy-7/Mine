@@ -21,7 +21,7 @@ namespace Lucky.Celeste.Helpers
             i = 0;
         }
 
-        public void Draw(Sprite sprite, Vector3 position, Color color, bool useWorldPos = true, float scale = 1, float rotation = 0)
+        public void Draw(Sprite sprite, Vector3 position, Color color, Vector2 scale, float rotation = 0, bool useWorldPos = true)
         {
             if (i == srs.Count)
                 srs.Add(Instantiate(Resources.Load<SpriteRenderer>("Components/SpriteRenderer"), transform));
