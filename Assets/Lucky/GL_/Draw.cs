@@ -102,10 +102,38 @@ namespace Lucky.GL_
             GL.Begin(GL.TRIANGLES);
 
             GL.Color(color);
-            for (int i = 0; i < poses.Length; i += 3)
+            for (int i = 0; i < poses.Length - 2; i += 3)
             {
                 GL.Vertex3(poses[i].x, poses[i].y, poses[i].z);
                 GL.Vertex3(poses[i + 1].x, poses[i + 1].y, poses[i + 1].z);
+                GL.Vertex3(poses[i + 2].x, poses[i + 2].y, poses[i + 2].z);
+            }
+
+            GL.End();
+            GL.PopMatrix();
+        }
+
+        public static void DrawTriangle3By3(
+            this MonoBehaviour orig,
+            Vector3[] poses,
+            Color[] colors
+        )
+        {
+            var transform = orig.transform;
+            CreateLineMaterial();
+            lineMaterial.SetPass(0);
+
+            GL.PushMatrix();
+            GL.MultMatrix(transform.localToWorldMatrix);
+            GL.Begin(GL.TRIANGLES);
+
+            for (int i = 0; i < poses.Length - 2; i += 3)
+            {
+                GL.Color(colors[i]);
+                GL.Vertex3(poses[i].x, poses[i].y, poses[i].z);
+                GL.Color(colors[i + 1]);
+                GL.Vertex3(poses[i + 1].x, poses[i + 1].y, poses[i + 1].z);
+                GL.Color(colors[i + 2]);
                 GL.Vertex3(poses[i + 2].x, poses[i + 2].y, poses[i + 2].z);
             }
 
@@ -139,7 +167,7 @@ namespace Lucky.GL_
             GL.MultMatrix(transform.localToWorldMatrix);
             GL.Begin(GL.TRIANGLES);
 
-            for (int i = 0; i < poses.Length; i += 3)
+            for (int i = 0; i < poses.Length - 2; i += 3)
             {
                 GL.Color(colors[(i / 3) % colors.Count]);
                 GL.Vertex3(poses[i].x, poses[i].y, poses[i].z);
