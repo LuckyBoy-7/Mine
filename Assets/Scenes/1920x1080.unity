@@ -249,14 +249,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1004957973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db9906199b34453a83c6fe3dfe26cad7, type: 3}
+  m_Script: {fileID: 11500000, guid: bdf63f4858344dc19609bb2934d36cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isVisible: 1
   color: {r: 1, g: 1, b: 1, a: 1}
-  side: 2
-  outwardsOffset: 0
-  entity: {x: 918.2, y: 0}
 --- !u!1 &1384948279
 GameObject:
   m_ObjectHideFlags: 0
