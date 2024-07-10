@@ -21,7 +21,7 @@ namespace Lucky.Celeste.Helpers
             i = 0;
         }
 
-        public void Draw(Sprite sprite, Vector3 position, Color color, bool useWorldPos = true)
+        public void Draw(Sprite sprite, Vector3 position, Color color, bool useWorldPos = true, float scale = 1, float rotation = 0)
         {
             if (i == srs.Count)
                 srs.Add(Instantiate(Resources.Load<SpriteRenderer>("Components/SpriteRenderer"), transform));
@@ -34,6 +34,8 @@ namespace Lucky.Celeste.Helpers
                 sr.transform.position = position;
             else
                 sr.transform.localPosition = position;
+            sr.transform.localScale = Vector3.one * scale;
+            sr.transform.eulerAngles = new Vector3(0, 0, rotation * Mathf.Rad2Deg);
         }
     }
 }

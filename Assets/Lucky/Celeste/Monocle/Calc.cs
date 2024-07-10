@@ -142,5 +142,10 @@ namespace Lucky.Celeste.Monocle
         {
             return new Vector2(-vector.y, vector.x);
         }
+
+        public static float NextAngle(this Random random)
+        {
+            return random.NextFloat() * Mathf.PI * 2;
+        }
     }
 }
