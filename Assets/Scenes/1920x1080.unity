@@ -249,12 +249,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1004957973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f46b585de384d19be7bf3ad2985da20, type: 3}
+  m_Script: {fileID: 11500000, guid: 2356a005a79643e9b48a4cde4acd1a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isVisible: 1
   color: {r: 1, g: 1, b: 1, a: 1}
-  coreModeType: 1
 --- !u!1 &1384948279
 GameObject:
   m_ObjectHideFlags: 0
