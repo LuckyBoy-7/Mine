@@ -218,7 +218,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1004957975}
   - component: {fileID: 1004957976}
-  - component: {fileID: 1004957977}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -250,25 +249,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1004957973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1afd2afc87f46ca99e5e854547330e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1004957977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1004957973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f2882b22b840f885cdfd8efd77b1f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 38423b7e390746eb91c70eaee9eaa0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isVisible: 1
   color: {r: 1, g: 1, b: 1, a: 1}
-  Offsety: 0
-  NorthernLightsAlpha: 0
 --- !u!1 &1384948279
 GameObject:
   m_ObjectHideFlags: 0
