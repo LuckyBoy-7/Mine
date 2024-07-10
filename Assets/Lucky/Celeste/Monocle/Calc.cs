@@ -137,5 +137,10 @@ namespace Lucky.Celeste.Monocle
         {
             return Mathf.Lerp(value1, value2, Mathf.Clamp(lerp, 0f, 1f));
         }
+
+        public static Vector2 Perpendicular(this Vector2 vector)
+        {
+            return new Vector2(-vector.y, vector.x);
+        }
     }
 }
