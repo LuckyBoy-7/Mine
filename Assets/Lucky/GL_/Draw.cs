@@ -211,6 +211,21 @@ namespace Lucky.GL_
             orig.DrawRect(pos - (Vector3)size * 0.5f, size.x, size.y, color);
         }
 
+        public static void DrawDot(this MonoBehaviour orig, Vector3 pos, Color color, Vector2 size, float rotation)
+        {
+            Vector3 bottomLeft = new Vector3(-size.x, -size.y) * 0.5f;
+            Vector3 bottomRight = new Vector3(size.x, -size.y) * 0.5f;
+            Vector3 topRight = new Vector3(size.x, size.y) * 0.5f;
+            Vector3 topLeft = new Vector3(-size.x, size.y) * 0.5f;
+
+            rotation = Mathf.Rad2Deg * rotation;
+            bottomLeft = Quaternion.Euler(0, 0, rotation) * bottomLeft + pos;
+            bottomRight = Quaternion.Euler(0, 0, rotation) * bottomRight + pos;
+            topRight = Quaternion.Euler(0, 0, rotation) * topRight + pos;
+            topLeft = Quaternion.Euler(0, 0, rotation) * topLeft + pos;
+
+            orig.DrawRect(bottomLeft, bottomRight, topRight, topLeft, color);
+        }
 
         public static void DrawDots(this MonoBehaviour orig, IEnumerable<Vector3> poses, Color color)
         {
