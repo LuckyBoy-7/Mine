@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = System.Random;
 
@@ -151,6 +152,30 @@ namespace Lucky.Celeste.Monocle
         public static Vector2 Floor(this Vector2 val)
         {
             return new Vector2((int)Math.Floor(val.x), (int)Math.Floor(val.y));
+        }
+
+        public static float Angle(this Vector2 vector)
+        {
+            return (float)Math.Atan2(vector.y, vector.x);
+        }
+
+        public static float AngleApproach(float val, float target, float maxMove)
+        {
+            float num = AngleDiff(val, target);
+            if (Math.Abs(num) < maxMove)
+                return target;
+
+            return val + Clamp(num, -maxMove, maxMove);
+        }
+
+        public static float AngleDiff(float radiansA, float radiansB)
+        {
+            float num = (radiansB - radiansA) % (Mathf.PI * 2);
+            if (num > Mathf.PI)
+                num -= Mathf.PI * 2;
+            else if (num < -Mathf.PI)
+                num += Mathf.PI * 2;
+            return num;
         }
     }
 }
