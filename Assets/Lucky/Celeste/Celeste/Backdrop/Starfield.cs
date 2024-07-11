@@ -97,7 +97,6 @@ namespace Lucky.Celeste.Celeste.Backdrop
             star.Position += (GetTargetOfStar(ref star) - star.Position) / 50f;
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         private Vector2 GetTargetOfStar(ref Star star)
         {
             Vector2 curNodePos = new Vector2(star.NodeIndex * StepSize, YNodes[star.NodeIndex]);

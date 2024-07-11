@@ -60,6 +60,8 @@ namespace Lucky.GL_
         {
             foreach (var (pos1, pos2) in Itertools.Pairwise(poses))
                 orig.DrawLine(pos1, pos2, color, lineWidth);
+            if (poses.Length >= 2)
+                orig.DrawLine(poses[0], poses[^1], color, lineWidth);
         }
 
         public static void DrawTriangle(
@@ -207,9 +209,55 @@ namespace Lucky.GL_
             Vector3 pos,
             float width,
             float height,
-            Color color
+            Color color,
+            bool isWire = false
         )
         {
+            if (isWire)
+            {
+                Vector3 pos1 = new Vector3(pos.x, pos.y, pos.z);
+                Vector3 pos2 = new Vector3(pos.x + width, pos.y, pos.z);
+                Vector3 pos3 = new Vector3(pos.x + width, pos.y + height, pos.z);
+                Vector3 pos4 = new Vector3(pos.x, pos.y + height, pos.z);
+                orig.DrawLines(color, 1, pos1, pos2, pos3, pos4);
+                return;
+            }
+
+            var transform = orig.transform;
+            CreateLineMaterial();
+            lineMaterial.SetPass(0);
+
+            GL.PushMatrix();
+            GL.MultMatrix(transform.localToWorldMatrix);
+
+            GL.Begin(GL.QUADS);
+
+            GL.Color(color);
+            GL.Vertex3(pos.x, pos.y, pos.z);
+            GL.Vertex3(pos.x + width, pos.y, pos.z);
+            GL.Vertex3(pos.x + width, pos.y + height, pos.z);
+            GL.Vertex3(pos.x, pos.y + height, pos.z);
+
+            GL.End();
+            GL.PopMatrix();
+        }
+
+        public static void DrawRect(
+            this MonoBehaviour orig,
+            Vector3 pos1,
+            Vector3 pos2,
+            Vector3 pos3,
+            Vector3 pos4,
+            Color color,
+            bool isWire = false
+        )
+        {
+            if (isWire)
+            {
+                orig.DrawLines(color, 1, pos1, pos2, pos3, pos4);
+                return;
+            }
+
             var transform = orig.transform;
             CreateLineMaterial();
             lineMaterial.SetPass(0);
@@ -219,10 +267,10 @@ namespace Lucky.GL_
             GL.Begin(GL.QUADS);
 
             GL.Color(color);
-            GL.Vertex3(pos.x, pos.y, pos.z);
-            GL.Vertex3(pos.x + width, pos.y, pos.z);
-            GL.Vertex3(pos.x + width, pos.y + height, pos.z);
-            GL.Vertex3(pos.x, pos.y + height, pos.z);
+            GL.Vertex3(pos1.x, pos1.y, pos1.z);
+            GL.Vertex3(pos2.x, pos2.y, pos2.z);
+            GL.Vertex3(pos3.x, pos3.y, pos3.z);
+            GL.Vertex3(pos4.x, pos4.y, pos4.z);
 
             GL.End();
             GL.PopMatrix();
@@ -281,32 +329,6 @@ namespace Lucky.GL_
             GL.PopMatrix();
         }
 
-        public static void DrawRect(
-            this MonoBehaviour orig,
-            Vector3 pos1,
-            Vector3 pos2,
-            Vector3 pos3,
-            Vector3 pos4,
-            Color color
-        )
-        {
-            var transform = orig.transform;
-            CreateLineMaterial();
-            lineMaterial.SetPass(0);
-
-            GL.PushMatrix();
-            GL.MultMatrix(transform.localToWorldMatrix);
-            GL.Begin(GL.QUADS);
-
-            GL.Color(color);
-            GL.Vertex3(pos1.x, pos1.y, pos1.z);
-            GL.Vertex3(pos2.x, pos2.y, pos2.z);
-            GL.Vertex3(pos3.x, pos3.y, pos3.z);
-            GL.Vertex3(pos4.x, pos4.y, pos4.z);
-
-            GL.End();
-            GL.PopMatrix();
-        }
 
         public static void DrawWireCircle(
             this MonoBehaviour orig,
