@@ -217,7 +217,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1004957975}
-  - component: {fileID: 1004957976}
+  - component: {fileID: 1004957977}
+  - component: {fileID: 1004957978}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -233,14 +234,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004957973}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960, y: -540, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 519420032}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1004957976
+--- !u!114 &1004957977
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -249,11 +250,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1004957973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 444b9b719eb449e19a0e83803ce03da8, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a232bf6ea82434ca67928c4eb3cfaa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isVisible: 1
   color: {r: 1, g: 1, b: 1, a: 1}
+  Direction: 0
+  StrengthMultiplier: 0
+  CenterOffset: {x: 0, y: 0}
+  OffsetOffset: {x: 0, y: 0}
+  Wind: {x: 0, y: 0}
+--- !u!114 &1004957978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004957973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1afd2afc87f46ca99e5e854547330e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1384948279
 GameObject:
   m_ObjectHideFlags: 0
